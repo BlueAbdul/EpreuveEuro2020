@@ -1,10 +1,10 @@
 let game;
 let sky
 
-export function gameStart(){  
-    let vid = document.getElementById("myVideo"); 
+export function gameStart(){
+    let vid = document.getElementById("myVideo");
         vid.parentNode.removeChild(vid);
-        
+
             // object containing configuration options
             let gameConfig = {
                 type: Phaser.WEBGL,
@@ -262,7 +262,7 @@ export class playGame extends Phaser.Scene{
     addMountains(){
         let rightmostMountain = this.getRightmostMountain();
         if(rightmostMountain < game.config.width * 2){
-            let mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), game.config.height + Phaser.Math.Between(0, 100), "mountain");
+            let mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(550, 600), game.config.height, "mountain");
             mountain.setOrigin(0.5, 1);
             mountain.body.setVelocityX(gameOptions.mountainSpeed * -1)
             this.mountainGroup.add(mountain);
@@ -320,9 +320,9 @@ export class playGame extends Phaser.Scene{
                     this.ballGroup.add(ball);
                 }
             }
-    
+
             if(Phaser.Math.Between(1, 100) <= gameOptions.cartonRougePercent){
-    
+
                 if(this.cartonRougePool.getLength()){
                     let cartonRouge = this.cartonRougePool.getFirst();
                     cartonRouge.x = posX;
@@ -416,9 +416,9 @@ export class gameOver extends Phaser.Scene{
 
         this.add.sprite(game.config.width / 2, 200, 'sad');
 
-        
+
         this.add.text(game.config.width / 2 - 200, game.config.height / 2 + 250, `Vous avez perdu - Votre score : ${localStorage.getItem('score')} - Cliquez pour revenir au menu `, { font: '16px Courier', fill: '#00ff00' });
-       
+
 
         this.input.once('pointerup', function (event) {
 

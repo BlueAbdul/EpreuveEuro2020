@@ -1,0 +1,28 @@
+mat-form-field {
+    width: 80%;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+
+.radio-label {
+    margin-left: 56px;
+    margin-right: 16px;
+}
+
+a{
+    margin-left: 26px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.help-block{
+    color: red;
+}
+
+form {
+    margin-top: 50px;
+}

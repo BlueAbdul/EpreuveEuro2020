@@ -1,0 +1,11 @@
+<!--Mineur-->
+<p *ngIf="!data.email">Bravo {{data.firstname}} tu as réussi à collecter les 11 ballons.</p>
+<!--Majeur-->
+<div *ngIf="data.email">
+    <p>Félicitation {{data.firstname}} vous avez réussi à collecter les 11 ballons.</p>
+    <p>Votre participation au jeu concours est enregistré, vous recevrez un mail de confirmation sur {{data.email}}.</p>
+    <p>Tirage au sort le dimanche 11 juillet 2021.</p>
+</div>
+
+<button mat-button (click)="onClose()">OK</button>
+

@@ -1,0 +1,234 @@
+<!--Form-->
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+<!--Identité-->
+<div class="row">
+<div class="col-12 ms-3 mt-3">
+    <h2>Identité:</h2>
+</div>
+</div>
+<div class="row text-center">
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Nom</mat-label>
+        <input matInput placeholder="Mbappe" formControlName="name">
+        <mat-icon matSuffix style="color:cornflowerblue">person</mat-icon>
+        <mat-hint>
+            <p *ngIf="!clientForm.get('name').touched" style="color:cornflowerblue"><mat-icon matPrefix>person</mat-icon>Champ obligatoire</p>
+            <p class="help-block" *ngIf="!clientForm.get('name').valid && clientForm.get('name').touched">
+                <mat-icon matPrefix>person</mat-icon>
+                Champ obligatoire
+            </p>
+        </mat-hint>
+    </mat-form-field> 
+</div>
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Prénom</mat-label>
+        <input matInput placeholder="Kylian" formControlName="firstname">
+        <mat-icon matSuffix style="color:cornflowerblue">person</mat-icon>
+        <mat-hint>
+            <p *ngIf="!clientForm.get('firstname').touched" style="color:cornflowerblue"><mat-icon matPrefix>person</mat-icon>Champ obligatoire</p>
+            <p class="help-block" *ngIf="!clientForm.get('firstname').valid && clientForm.get('firstname').touched">
+                <mat-icon matPrefix>person</mat-icon>
+                Champ obligatoire
+            </p>
+        </mat-hint>
+    </mat-form-field> 
+</div>
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Sexe</mat-label>
+        <mat-select formControlName="sexe">
+            <mat-option value="male">Masculin</mat-option>
+            <mat-option value="female">Féminin</mat-option>
+        </mat-select>
+        </mat-form-field>
+</div>
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Date de naissance</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthday">
+        <mat-datepicker-toggle matSuffix [for]="picker" style="color:cornflowerblue"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint>
+            <p *ngIf="!clientForm.get('birthday').touched" style="color:cornflowerblue"><mat-icon matPrefix>event</mat-icon>Champ obligatoire</p>
+            <p class="help-block" *ngIf="!clientForm.get('birthday').valid && clientForm.get('birthday').touched">
+                <mat-icon matPrefix>event</mat-icon>
+                Champ obligatoire
+            </p>
+        </mat-hint>
+    </mat-form-field> 
+</div>
+</div>
+<!--Footer identité-->
+<div class="row" *ngIf="!formMajor && major">
+<div class="col-12 m-3">
+    <p style="font-style: italic;">Veuillez compléter votre profil pour valider vos résultats.</p>
+</div>
+</div>
+<!--Boutton validation de form si mineur-->
+<div class="row mt-3" *ngIf="!major">
+<div class="col-12 text-center">
+    <p class="help-block" style="font-style: italic;" *ngIf="clientForm.get('name').errors || clientForm.get('firstname').errors || clientForm.get('birthday').errors">Des champs du formulaire sont invalides. Veuillez les compléter svp.</p>
+    <button type="submit" mat-raised-button color="primary" [disabled]="clientForm.get('name').errors || clientForm.get('firstname').errors || clientForm.get('birthday').errors">Obtenir mon score</button>
+</div>
+</div>
+<!--Reste form si majeur-->
+<div class="row text-center" *ngIf="formMajor && major">
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="raymond.domenech@fff.fr" formControlName="email">
+        <mat-icon matSuffix style="color:cornflowerblue">mail</mat-icon>
+        <mat-hint>
+            <p *ngIf="!clientForm.get('email').touched" style="color:cornflowerblue"><mat-icon matPrefix>mail</mat-icon>Champ obligatoire</p>
+            <p class="help-block" *ngIf="!clientForm.get('email').valid && clientForm.get('email').touched">
+                <mat-icon matPrefix>mail</mat-icon>
+                <span *ngIf="clientForm.get('email').errors['required']">Champ obligatoire</span>
+                <span *ngIf="clientForm.get('email').errors['email']">L'email n'est pas valide</span>
+            </p>
+        </mat-hint>
+    </mat-form-field> 
+</div>
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Telephone</mat-label>
+        <input matInput placeholder="0655734425" formControlName="phone">
+        <mat-icon matSuffix style="color:cornflowerblue">phone</mat-icon>
+        <mat-hint>
+            <p class="help-block" *ngIf="!clientForm.get('phone').valid && clientForm.get('phone').touched">
+                <mat-icon matPrefix>phone</mat-icon>
+                Le format du numéro n'est pas correct
+            </p>
+        </mat-hint>
+    </mat-form-field> 
+</div> 
+</div>
+<!--Adresse-->
+<div class="row mt-3" *ngIf="formMajor && major">
+<div class="col-12 ms-3">
+    <h2>Adresse:</h2>
+</div>
+</div>
+<div class="row text-center" formGroupName="address" *ngIf="formMajor && major">
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Rue</mat-label>
+        <input matInput placeholder="3 Boulevard Saint Symphorien" formControlName="street">
+    </mat-form-field> 
+</div>
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Code postal</mat-label>
+        <input matInput placeholder="57050" formControlName="zipcode">
+    </mat-form-field> 
+</div>
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Ville</mat-label>
+        <input matInput placeholder="Longeville-lès-Metz" formControlName="city">
+    </mat-form-field> 
+</div>
+<div class="col-md-6 col-sm-12">
+    <mat-form-field appearance="outline">
+        <mat-label>Pays</mat-label>
+        <mat-select formControlName="sexe">
+            <mat-option value="France">France</mat-option>
+            <mat-option value="Belgique">Belgique</mat-option>
+            <mat-option value="Luxembourg">Luxembourg</mat-option>
+            <mat-option value="Suisse">Suisse</mat-option>
+        </mat-select>
+        </mat-form-field> 
+</div>
+</div>
+
+<!--Voiture-->
+<div class="row mt-3" *ngIf="formMajor && major">
+    <div class="col-12 ms-3">
+        <h2>Voiture:</h2>
+    </div>
+</div>
+<div class="row text-center m-3" formGroupName="car" *ngIf="formMajor && major">
+    <div class="col-md-6 col-sm-12" class="text-start">
+        <mat-radio-group aria-label="Sélectionnez une option" layout="row" color="primary" formControlName="driving_licence">
+            <mat-label class="radio-label">Possède le permis ?</mat-label>
+            <mat-radio-button [value]="true">Oui</mat-radio-button>
+            <mat-radio-button [value]="false">Non</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="col-md-6 col-sm-12" class="text-start mt-3" *ngIf="clientForm.get('car.driving_licence').value">
+        <mat-radio-group aria-label="Sélectionnez une option" layout="row" color="primary" formControlName="personal_car">
+            <mat-label class="radio-label">Possède une voiture personnelle ?</mat-label>
+            <mat-radio-button [value]="true">Oui</mat-radio-button>
+            <mat-radio-button [value]="false">Non</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="col-md-6 col-sm-12" class="text-start mt-3" *ngIf="clientForm.get('car.personal_car').value">
+        <mat-radio-group aria-label="Sélectionnez une option" layout="row" color="primary" formControlName="car_is_vw">
+            <mat-label class="radio-label">Cette voiture est-t-elle une Volkswagen ?</mat-label>
+            <mat-radio-button [value]="true">Oui</mat-radio-button>
+            <mat-radio-button [value]="false">Non</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="col-md-6 col-sm-12" style="margin-top: 10px;" *ngIf="clientForm.get('car.car_is_vw').value === false">
+        <mat-form-field appearance="outline">
+            <mat-label>Précisez la marque</mat-label>
+            <input matInput placeholder="Longeville-lès-Metz" formControlName="no_vw">
+        </mat-form-field> 
+    </div>
+    <div class="col-md-6 col-sm-12" style="margin-top: 10px;" *ngIf="(clientForm.get('car.personal_car').value && clientForm.get('car.car_is_vw').value) || (clientForm.get('car.personal_car').value && !clientForm.get('car.car_is_vw').value) ">
+        <mat-form-field appearance="outline">
+            <mat-label>Type de voiture</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let car of type_car" [value]="car.id">{{car.type}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+    </div>
+</div>
+
+<!--Volkswagen-->
+<div class="row mt-3" *ngIf="formMajor && major && formVw">
+<div class="col-12 ms-3">
+    <h2>Volkswagen:</h2>
+</div>
+</div>
+<div class="row text-center m-3" formGroupName="vw" *ngIf="formMajor && major && formVw">
+<div class="col-md-6 col-sm-12" class="text-start">
+    <mat-radio-group aria-label="Sélectionnez une option" layout="row" color="primary" formControlName="know_vw">
+        <mat-label class="radio-label">Connaissez vous Volkswagen ?</mat-label>
+        <mat-radio-button [value]="true">Oui</mat-radio-button>
+        <mat-radio-button [value]="false">Non</mat-radio-button>
+    </mat-radio-group>
+</div>
+<div class="col-md-6 col-sm-12" class="text-start mt-3" *ngIf="clientForm.get('vw.know_vw').value">
+    <mat-radio-group aria-label="Sélectionnez une option" layout="row" color="primary" formControlName="note_vw">
+        <mat-label class="radio-label">Attribuez une note (0:Mauvais - 5:Excellent) :</mat-label>
+        <mat-radio-button [value]="1">1</mat-radio-button>
+        <mat-radio-button [value]="2">2</mat-radio-button>
+        <mat-radio-button [value]="3">3</mat-radio-button>
+        <mat-radio-button [value]="4">4</mat-radio-button>
+        <mat-radio-button [value]="5">5</mat-radio-button>
+    </mat-radio-group>
+</div>
+</div>
+
+<!--Boutton validation de form et rgpd-->
+<div class="row mt-3" *ngIf="major && endForm">
+<div class="row text-center m-3">
+    <div class="col-12" class="text-start mt-3">
+        <mat-slide-toggle [value]="true" color="primary" formControlName="accept_offers">J'accepte de recevoir des offres commerciales de la part de Volkswagen.</mat-slide-toggle>
+    </div>
+    <div class="col-12" class="text-start mt-3">
+        <mat-slide-toggle [value]="true" color="primary" formControlName="rgpd">«En cochant cette case, j’accepte la politique de confidentialité de ce site».</mat-slide-toggle>
+    </div>
+    <div class="col-12" class="text-start m-3">
+        <a (click)="showRgpd()" style="color:cornflowerblue">Consulter la politique RGPD du site.</a>
+    </div>
+</div>
+<div class="col-12 text-center">
+    <p class="help-block" style="font-style: italic;" *ngIf="clientForm.get('name').errors || clientForm.get('firstname').errors || clientForm.get('birthday').errors || clientForm.get('email').errors">Des champs du formulaire sont invalides. Veuillez les compléter svp.</p>
+    <button type="submit" mat-raised-button color="primary" [disabled]="clientForm.get('name').errors || clientForm.get('firstname').errors || clientForm.get('birthday').errors || clientForm.get('email').errors">Valider</button>
+</div>
+
+</div>
+</form>

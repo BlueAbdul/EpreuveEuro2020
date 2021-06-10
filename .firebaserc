@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "devbattle-ifa": {
+      "hosting": {
+        "devbattle-angular": [
+          "devbattle-ifa"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "devbattle-ifa"
+  }
+}
